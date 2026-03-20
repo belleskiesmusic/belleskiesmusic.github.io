@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Belle Skies</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png" />
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Great+Vibes&family=Cinzel+Decorative&display=swap" rel="stylesheet" />
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Marcellus', serif;
+      background-color: #0a0a0a;
+      color: #e0e0e0;
+      text-align: center;
+      overflow-x: hidden;
+      position: relative;
+      min-height: 100vh;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: url('fogsym.png') repeat;
+      background-size: 600px 600px;
+      opacity: 0.15;
+      animation: fogMove 120s linear infinite;
+      z-index: -2;
+    }
+
+    @keyframes fogMove {
+      0% { background-position: 0 0; }
+      100% { background-position: 1000px 0; }
+    }
+
+    /* Lightning Layers */
+    .lightning-layer {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none;
+      background: rgba(255, 255, 255, 0.8);
+      mix-blend-mode: screen;
+      opacity: 0;
+      z-index: -1;
+    }
+
+    .lightning-one { animation: lightningFlashOne 20s infinite; }
+    .lightning-two { animation: lightningFlashTwo 30s infinite; }
+    .lightning-three { animation: lightningFlashThree 40s infinite; }
+
+    @keyframes lightningFlashOne {
+      0%, 95%, 100% { opacity: 0; }
+      96% { opacity: 0.5; }
+      97% { opacity: 0; }
+      98% { opacity: 0.8; }
+      99% { opacity: 0; }
+    }
+    @keyframes lightningFlashTwo {
+      0%, 93%, 100% { opacity: 0; }
+      94% { opacity: 0.4; }
+      95% { opacity: 0; }
+      96% { opacity: 0.6; }
+      97% { opacity: 0; }
+    }
+    @keyframes lightningFlashThree {
+      0%, 90%, 100% { opacity: 0; }
+      91% { opacity: 0.6; }
+      92% { opacity: 0; }
+      93% { opacity: 0.9; }
+      94% { opacity: 0; }
+    }
+
+    .gradient-text {
+      background: linear-gradient(90deg, #8a2be2, #00ffcc, #ffffff);
+      background-size: 300% 300%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: gradientShift 8s ease infinite;
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .site-title {
+      font-family: 'Cinzel Decorative', cursive;
+      font-size: 64px;
+      letter-spacing: 6px;
+      margin-top: 20px;
+    }
+
+    .quotes {
+      font-family: 'Great Vibes', cursive;
+      font-size: 32px;
+      color: #ccc;
+      opacity: 0.85;
+      margin: 20px auto 50px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-width: 800px;
+    }
+
+    .quote {
+      letter-spacing: 1px;
+      transition: transform 0.4s ease, opacity 0.4s ease;
+    }
+
+    .quote:hover {
+      transform: scale(1.05);
+      opacity: 1;
+      color: #00ffcc;
+    }
+
+    /* Hand-drawn Lightning Bolt */
+    .lightning-bolt {
+      width: 100px;
+      height: auto;
+      margin: 30px auto;
+    }
+
+    .lightning-bolt svg {
+      width: 100%;
+      height: auto;
+    }
+
+    .lightning-bolt path {
+      fill: none;
+      stroke: #00ffcc;
+      stroke-width: 4;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-dasharray: 500;
+      stroke-dashoffset: 500;
+      animation: drawBolt 2s ease forwards;
+      filter: drop-shadow(0 0 10px rgba(0, 255, 204, 0.7));
+    }
+
+    @keyframes drawBolt {
+      to {
+        stroke-dashoffset: 0;
+      }
+    }
+
+    /* Container and Common Styles */
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    h2 {
+      font-size: 32px;
+      font-weight: normal;
+      margin: 60px 0 20px 0;
+    }
+
+    p {
+      font-size: 18px;
+      color: #ccc;
+      line-height: 1.6;
+      margin: 20px 0;
+    }
+
+    img {
+      width: 100%;
+      max-width: 600px;
+      margin: 20px 0;
+      border-radius: 16px;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+      transition: transform 0.4s ease;
+    }
+
+    img:hover {
+      transform: scale(1.02);
+    }
+
+    iframe {
+      width: 100%;
+      max-width: 600px;
+      height: 340px;
+      margin: 20px 0;
+      border-radius: 16px;
+      box-shadow: 0 0 20px rgba(0, 255, 204, 0.3);
+    }
+
+    .socials a {
+      display: inline-block;
+      margin: 10px;
+      color: #00ffcc;
+      font-weight: 500;
+      text-decoration: none;
+      border: 1px solid #00ffcc;
+      padding: 10px 18px;
+      border-radius: 25px;
+      background-color: rgba(255, 255, 255, 0.15);
+      transition: background 0.3s, color 0.3s, box-shadow 0.3s;
+    }
+
+    .socials a:hover {
+      background: #00ffcc;
+      color: #111;
+      box-shadow: 0 0 10px rgba(0, 255, 204, 0.6);
+    }
+
+    .form-container {
+      margin-top: 40px;
+      padding: 30px;
+      background: rgba(255, 255, 255, 0.05);
+      display: inline-block;
+      border-radius: 16px;
+      box-shadow: 0 0 15px rgba(0, 255, 204, 0.2);
+      width: auto;
+      max-width: 400px;
+    }
+
+    input[type="email"] {
+      padding: 14px;
+      width: 100%;
+      margin-bottom: 15px;
+      border-radius: 30px;
+      border: none;
+      outline: none;
+      background: rgba(255, 255, 255, 0.1);
+      color: #eee;
+      font-size: 18px;
+      text-align: center;
+      font-family: 'Marcellus', serif;
+    }
+
+    button {
+      padding: 14px 22px;
+      border-radius: 30px;
+      border: 1px solid #00ffcc;
+      background: rgba(255, 255, 255, 0.15);
+      color: #00ffcc;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 18px;
+      transition: background 0.3s, color 0.3s, box-shadow 0.3s;
+      font-family: 'Marcellus', serif;
+    }
+
+    button:hover {
+      background: #00ffcc;
+      color: #111;
+      box-shadow: 0 0 10px rgba(0, 255, 204, 0.6);
+    }
+
+    .gig-entry {
+      margin: 40px auto;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 16px;
+      box-shadow: 0 0 15px rgba(0, 255, 204, 0.2);
+      text-align: center;
+      width: fit-content;
+      max-width: 600px;
+    }
+
+    .gig-entry h3 {
+      color: #00ffcc;
+      margin-bottom: 6px;
+      font-size: 22px;
+      /* text-transform: uppercase; */
+      font-weight: normal;
+    }
+
+    .gig-detail {
+      margin-bottom: 24px;
+      color: #eee;
+      font-size: 18px;
+    }
+
+    .gig-detail a {
+      color: #bdf0e6;
+      text-decoration: underline;
+    }
+
+    footer {
+      margin: 40px 0 10px;
+      color: #777;
+      font-size: 14px;
+    }
+
+    /* Creepy QR Code */
+    .qr-creepy {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 50px;
+    }
+
+    .qr-creepy img {
+      width: 160px;
+      height: 160px;
+      border: 2px solid rgba(100, 150, 125, 0);
+      padding: 10px;
+      background-color: rgba(0, 255, 204, 0.1);
+      box-shadow: 0 0 40px rgba(0, 255, 204, 0.6);
+      transition: transform 0.5s ease, box-shadow 0.5s ease;
+    }
+
+    .qr-creepy img:hover {
+      transform: scale(1.1) rotate(2deg);
+      box-shadow: 0 0 60px rgba(255, 0, 0, 0.9);
+    }
+
+    @media (max-width: 600px) {
+      .gig-entry {
+        padding: 15px;
+      }
+
+      .gig-entry h3 {
+        font-size: 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Lightning Layers -->
+  <div class="lightning-layer lightning-one"></div>
+  <div class="lightning-layer lightning-two"></div>
+  <div class="lightning-layer lightning-three"></div>
+
+  <!-- Hand-drawn Lightning Bolt -->
+  <div class="lightning-bolt">
+    <svg viewBox="0 0 100 200" xmlns="http://www.w3.org/2000/svg">
+  <!--<path d="M50 0 L20 100 H60 L10 200 L80 100 H40 Z" />-->
+	  <path d="M50 0 L20 100 H60 L30 200 L80 100 H40 Z" />
+    </svg>
+  </div>
+
+  <header>
+    <h1 class="site-title gradient-text">Belle Skies</h1>
+    <div class="quotes">
+      <div class="quote">dextrous and cerebral wonder</div>
+    </div>
+  </header>
+
+  <div class="container">
+
+    <h2 class="gradient-text">The Belles</h2>
+    <p>
+      Ali — Drums<br>
+      Marianne — Cello and Sax<br>
+      Sam — Bass and Synth and Guitar<br>
+      Tom — Vocal and Guitar
+    </p>
+
+    <h2 class="gradient-text">Videos</h2>
+    <iframe src="https://www.youtube.com/embed/AhgDPo76fcs" frameborder="0" allowfullscreen></iframe>
+
+    <h2 class="gradient-text">Gallery</h2>
+    <img src="BelleSkies1.jpeg" alt="Belle Skies Image 1" />
+    <img src="BelleSkies2.jpg" alt="Belle Skies Image 2" />
+    <img src="BelleSkies3.jpg" alt="Belle Skies Image 3" />
+    <img src="BelleSkies4.jpg" alt="Belle Skies Image 4" />
+
+    <h2 class="gradient-text">Upcoming gigs</h2>
+    
+     <!--<p> -->
+     <!--  No gigs booked at the moment.<br> -->
+     <!--  We'd love to hear from anyone who would like to host or gig share with us. -->
+     <!--</p> -->
+    
+    
+    
+   <div class="gig-entry">
+      <h3>When</h3>
+      <p class="gig-detail">Sat 21 March 2026 @ 2pm - 6pm</p>
+	  
+	  <h3>With</h3>
+      <p class="gig-detail">
+        <a href="https://www.facebook.com/profile.php?id=61555409943016" target="_blank">Johnny D And The Space Cadets</a><br>
+        <a href="https://www.facebook.com/profile.php?id=61585554662309" target="_blank">Geoffrey Doghead</a>
+      </p>
+
+	  
+	  <h3>Venue</h3>
+      <p class="gig-detail">Two By Two Brewery and Tap Room</p>
+      <p class="gig-detail">(family friendly)</p>
+
+      <h3>Location</h3>
+      <p class="gig-detail">Unit 8 Morley's Yard, Byker, NE6 1PQ</p>
+
+      <h3>Tickets</h3>
+      <p class="gig-detail">
+   <!-- <a href="https://www.ticketweb.uk/event/holiday-in-tokyo-cluny-2-tickets/14368923" target="_blank">£5+fees (proceeds to Parkinson's UK)</a>-->
+      <p class="gig-detail">No ticket needed, free entry!</p>
+      </p>
+    </div>
+    
+    
+    
+   <!-- <div class="gig-entry">-->
+   <!--   <h3>When</h3>-->
+   <!--   <p class="gig-detail">Sun 30 November 2025 1pm - 4:30pm</p>-->
+	  
+	  <!--<h3>With</h3>-->
+   <!--   <p class="gig-detail">-->
+   <!--     <a href="https://www.facebook.com/madeleinesmythmusic" target="_blank">Madeleine Smyth</a><br>-->
+   <!--     <a href="https://theyoungpropertydevelopers.bandcamp.com" target="_blank">Young Property Developers</a>-->
+   <!--   </p>-->
+
+	  
+	  <!--<h3>Venue</h3>-->
+   <!--   <p class="gig-detail">Cumberland Arms</p>-->
+
+   <!--   <h3>Location</h3>-->
+   <!--   <p class="gig-detail">James Pl St, Newcastle upon Tyne, NE6 1LD</p>-->
+
+   <!--   <h3>Tickets</h3>-->
+   <!--   <p class="gig-detail">-->
+   <!--     <a href="https://www.fatsoma.com/e/yqilpizv/belle-skies-barry-antoinette-album-launch" target="_blank">Get tickets here</a>-->
+   <!--   </p>-->
+   <!-- </div>-->
+    
+    
+    
+
+    <h2 class="gradient-text">Links</h2>
+    <div class="socials">
+      <a href="https://open.spotify.com/artist/4PHcB6QLKd2ScA5HshFbki?si=NKbJIXx9SwCMIW13-8Lo3Q" target="_blank">Spotify</a>
+      <a href="https://www.youtube.com/@belleskiesband" target="_blank">YouTube</a>
+      <a href="https://www.instagram.com/belleskiesband/" target="_blank">Instagram</a>
+      <a href="https://belleskies.bandcamp.com/" target="_blank">Bandcamp</a>
+      <a href="https://www.facebook.com/belle.skies.music" target="_blank">Facebook</a>
+    </div>
+
+    <h2 class="gradient-text">Join our mailing list</h2>
+    <div class="form-container">
+      <form action="https://formspree.io/f/mrbppyvd" method="POST">
+        <input type="email" name="email" placeholder="Enter your email" required />
+        <button type="submit">Subscribe</button>
+      </form>
+      <p style="margin-top: 20px; color: #ccc;">Email us <a href="mailto:belleskiesmusic@gmail.com" style="color: #00ffcc;">belleskiesmusic@gmail.com</a></p>
+    </div>
+
+  </div>
+
+  <!-- Creepy QR Code -->
+  <div class="qr-creepy">
+    <img src="belle-skies-awaits.png" alt="Creepy QR Code">
+  </div>
+
+  <footer>
+    &copy; 2025 Belle Skies
+  </footer>
+</body>
+</html>
